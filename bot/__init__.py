@@ -1,6 +1,7 @@
 from telethon import events,functions,errors
 from telethon.sync import TelegramClient
 from telethon.sessions import StringSession
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import Config
 import asyncio
 import threading
@@ -40,7 +41,22 @@ async def download(event):
                     participant = event.sender_id
                     ))
             except errors.UserNotParticipantError:
-                await event.reply(f"First join to our official channel to access the bot or get the newest news about the bot\n\n@{Config.CHANNEL_USERNAME}\n\nAfter that /start the bot aging.")
+                await event.reply(
+                    chat_id=m.chat.id,
+                    text="**Pʟᴇᴀsᴇ Jᴏɪɴ  Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴛʜɪs Bᴏᴛ**!\n\n**Dᴜᴇ ᴛᴏ Oᴠᴇʀʟᴏᴀᴅ, Oɴʟʏ Cʜᴀɴɴᴇʟ Sᴜʙsᴄʀɪʙᴇʀs ᴄᴀɴ ᴜsᴇ ᴛʜᴇ Bᴏᴛ**!",
+                    reply_markup=InlineKeyboardMarkup(
+                        [
+                            [
+                                InlineKeyboardButton("🤖 Join Updates Channel", url=f"https://t.me/{Config.DOMAIN}")
+                            ],
+                            [
+                                InlineKeyboardButton("🔄 Refresh / Try Again",
+                                                     url=f"https://t.me/zorstreamzz.herokuapp.com/{usr_cmd}") # Change ur app name
+                            ]
+                        ]
+                    ),
+                    parse_mode="markdown"
+                )
                 return
         
         if event.file :
@@ -51,11 +67,11 @@ async def download(event):
             msg = await event.client.send_file(
                 Config.CHANNEL,
                 file=event.message.media,
-                caption=f"@{sender.username}|[{event.chat_id}](tg://user?id={event.sender_id})/{event.message.id}")
+                caption=f"{message.file.name")
             id_hex = hex(msg.id)[2:]
             id = f"{id_hex}/{get_file_name(msg)}"
             bot_url = f"t.me/{username_bot}?start={id_hex}"
-            await event.reply(f"Link to download file: \n\n📎 : {Config.DOMAIN}/{id}\n\n🤖 : {bot_url}")
+            await event.reply(f"Link to download file: \n\n🖥 : {Config.DOMAIN}/{id}\n\n📥 : {bot_url}")
             return
 
         elif id_msg := re.search("/start (.*)", event.raw_text ):
@@ -76,12 +92,12 @@ async def download(event):
                         forward = await file.forward_to(event.chat_id)
                         id_name = f"{id_hex}/{get_file_name(msg)}"
                         bot_url = f"t.me/{username_bot}?start={id_hex}"
-                        forward_reply = await forward.reply(f"will be deleted in 21 seconds. \n\n📎 : {Config.DOMAIN}/{id_name}\n\n🤖 : {bot_url}",link_preview=False)
-                        await asyncio.sleep(12)
-                        await forward_reply.edit(f"will be deleted in 10 seconds. \n\n📎 : {Config.DOMAIN}/{id_name}\n\n🤖 : {bot_url}")
-                        await asyncio.sleep(10)
+                        forward_reply = await forward.reply(f"will be deleted in 30 seconds. \n\n🖥 : {Config.DOMAIN}/{id_name}\n\n📥 : {bot_url}",link_preview=False)
+                        await asyncio.sleep(16)
+                        await forward_reply.edit(f"will be deleted in 15 seconds. \n\n🖥 : {Config.DOMAIN}/{id_name}\n\n📥 : {bot_url}")
+                        await asyncio.sleep(15)
                         await forward.delete()
-                        await forward_reply.edit(f"📎 : {Config.DOMAIN}/{id_name}\n\n🤖 : {bot_url}",link_preview=True)
+                        await forward_reply.edit(f"🖥 : {Config.DOMAIN}/{id_name}\n\n📥 : {bot_url}",link_preview=True)
                 return
         
         if pv:
