@@ -54,7 +54,7 @@ async def download(event):
             id_hex = hex(msg.id)[2:]
             id = f"{id_hex}/{get_file_name(msg)}"
             bot_url = f"t.me/{username_bot}?start={id_hex}"
-            await event.reply(f"Link to Download File: \n\🖥Stream : {Config.DOMAIN}/{id}\n\n📥File : {bot_url}")
+            await event.reply(f"Link to Download File: \n\n🖥Stream : {Config.DOMAIN}/{id}\n\n📥File : {bot_url}")
             return
 
         elif id_msg := re.search("/start (.*)", event.raw_text ):
@@ -75,7 +75,7 @@ async def download(event):
                         forward = await file.forward_to(event.chat_id)
                         id_name = f"{id_hex}/{get_file_name(msg)}"
                         bot_url = f"t.me/{username_bot}?start={id_hex}"
-                        forward_reply = await forward.reply(f"The File will be deleted in 30 seconds. \n\n🖥Stream : {Config.DOMAIN}/{id_name}\n\📥File : {bot_url}",link_preview=False)
+                        forward_reply = await forward.reply(f"The File will be deleted in 30 seconds. \n\n🖥Stream : {Config.DOMAIN}/{id_name}\n\n📥File : {bot_url}",link_preview=False)
                         await asyncio.sleep(16)
                         await forward_reply.edit(f"will be deleted in 15 seconds. \n\n🖥Stream : {Config.DOMAIN}/{id_name}\n\n📥File : {bot_url}")
                         await asyncio.sleep(15)
