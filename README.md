@@ -17,7 +17,7 @@ demo : [downloader_star_bot](https://t.me/downloader_star_bot)
 
     [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/musa-42/stream-cloud)
 
-    `git clone https://github.com/musa-42/stream-cloud`
+    `git clone https://github.com/zoredeaxx/stream-cloud`
     
     > edit Config/__init__.py
     
