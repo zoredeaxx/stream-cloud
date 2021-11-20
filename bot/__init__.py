@@ -39,6 +39,8 @@ async def download(event):
                     channel = Config.CHANNEL_USERNAME,
                     participant = event.sender_id
                     ))
+            except errors.UserNotParticipantError:
+                await event.reply(f"First join to our official channel to access the bot or get the newest news about the bot\n\n@{Config.CHANNEL_USERNAME}\n\nAfter that /start the bot aging.")
                 return
         
         if event.file :
@@ -48,7 +50,7 @@ async def download(event):
             sender = await event.get_sender()
             msg = await event.client.send_file(
                 Config.CHANNEL,
-                file=event.message.media,
+                file=event.message.media)   
             id_hex = hex(msg.id)[2:]
             id = f"{id_hex}/{get_file_name(msg)}"
             bot_url = f"t.me/{username_bot}?start={id_hex}"
