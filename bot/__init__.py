@@ -38,7 +38,7 @@ async def download(event):
             try:
                 await event.client(functions.channels.GetParticipantRequest(
                     channel = Config.CHANNEL_USERNAME,
-                    participant = event.sender_id
+                    user_id = event.sender_id
                     ))
             except errors.UserNotParticipantError:
                 await event.reply(f"First join my support channel to access the bot.\n\n@{Config.CHANNEL_USERNAME}\n\nAfter that /start the bot again.")
