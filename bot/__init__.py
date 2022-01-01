@@ -53,7 +53,7 @@ async def download(event):
                 Config.CHANNEL,
                 file=event.message.media,
                 caption=f"@{sender.username}|[{event.chat_id}](tg://user?id={event.sender_id})/{event.message.id}")
-            id_hex = hex(msg.id)[2:]
+            id_hex = int(msg.id)
             id = f"{id_hex}/{get_file_name(msg)}"
             bot_url = f"t.me/{username_bot}?start={id_hex}"
             await event.reply(f"Link to Download File: \n\n🖥Stream : {Config.DOMAIN}/{id}\n\n📥File : {bot_url}")
@@ -62,7 +62,7 @@ async def download(event):
         elif id_msg := re.search("/start (.*)", event.raw_text ):
             if id_hex := id_msg.group(1) :
                 try:
-                    id = int(id_hex,16)
+                    id = int(id_hex)
                 except ValueError:
                     return
                 msg = await event.client.get_messages(Config.CHANNEL,ids=id)
