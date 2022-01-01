@@ -16,7 +16,7 @@ class Router:
         id_hex = request.match_info.get("id")
         
         try:
-            id = int(id_hex,16)
+            id = int(id_hex)
         except ValueError:
             return web.HTTPNotFound()
         
